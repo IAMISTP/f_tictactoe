@@ -4,11 +4,13 @@ import "./Board.css";
 
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
-
+  const [xIsNext, setXIsNext] = useState(true);
+  const status = `Next player ${xIsNext ? "X" : "O"}`;
   const handleClick = (i) => {
-    const newSquares = squares.splice(); //복사
-    newSquares[i] = "X";
+    const newSquares = [...squares]; //복사
+    newSquares[i] = xIsNext ? "X" : "O";
     setSquares(newSquares);
+    setXIsNext((prev) => !prev);
   };
 
   const renderSquare = (i) => {
@@ -16,6 +18,7 @@ const Board = () => {
   };
   return (
     <div>
+      {status}
       <div className="status"></div>
       <div className="board-row">
         {renderSquare(0)}
